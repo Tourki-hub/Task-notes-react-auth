@@ -17,12 +17,15 @@ const AddNote = ({ show, onClose, onSave }) => {
     onSuccess: () => {
       queryClient.invalidateQueries(["notes"]);
       onClose();
+      setTitle("");
+      setTopics([]);
+      setBody("");
     },
   });
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
   };
-
+  console.log(title, topics, body);
   const handleTopicChange = (e, index) => {
     const updatedTopics = [...topics];
     updatedTopics[index] = e.target.value;
@@ -46,9 +49,6 @@ const AddNote = ({ show, onClose, onSave }) => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     addNote();
-    setTitle("");
-    setTopics([]);
-    setBody("");
   };
 
   if (!show) {

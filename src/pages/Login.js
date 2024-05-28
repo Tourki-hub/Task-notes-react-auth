@@ -1,10 +1,13 @@
 import React, { useState } from "react";
-import { login } from "../api/auth";
+import { login, storeToken } from "../api/auth";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import UserContext from "../Context/UserContext";
 
 const Login = () => {
   const [userInfo, setUserInfo] = useState({});
+  const [user, setUser] = useContext(UserContext);
   const nav = useNavigate();
 
   const handleChange = (e) => {
@@ -14,6 +17,8 @@ const Login = () => {
     mutationKey: ["login"],
     mutationFn: () => login(userInfo),
     onSuccess: () => {
+      setUser(true);
+
       nav("/");
     },
   });
